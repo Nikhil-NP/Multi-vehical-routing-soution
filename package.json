@@ -1,12 +1,25 @@
 {
   "name": "mrds",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "nikhil",
   "license": "ISC",
-  "description": "multi-route dilivery system"
+  "description": "multi-route dilivery system",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nikhil-NP/MDRS.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Nikhil-NP/MDRS/issues"
+  },
+  "homepage": "https://github.com/Nikhil-NP/MDRS#readme"
 }
