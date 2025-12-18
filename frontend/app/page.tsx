@@ -70,17 +70,17 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
       <div className="max-w-6xl mx-auto">
 
 
         {/* Header */}
         <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            🚚 Multi-Vehicle Delivery Route Optimizer
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+            🚚 Multi-Vehicle Route Optimizer
           </h1>
-          <p className="text-gray-600">
-            Powered by Google OR-Tools
+          <p className="text-gray-700 text-lg font-medium">
+            Powered by <span className="text-blue-600 font-semibold">Google OR-Tools</span>
           </p>
         </header>
 
@@ -94,60 +94,97 @@ export default function Home() {
           <div className="lg:col-span-2">
             {/* Error message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-                <strong>Error:</strong> {error}
+              <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-lg mb-4 shadow-sm">
+                <div className="flex items-center">
+                  <span className="text-2xl mr-3">⚠️</span>
+                  <div>
+                    <strong className="font-bold">Error:</strong>
+                    <p className="mt-1">{error}</p>
+                  </div>
+                </div>
               </div>
             )}
 
             {/* Loading state */}
             {loading && (
-              <div className="bg-white p-8 rounded-lg shadow-md text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Optimizing routes...</p>
+              <div className="bg-white p-10 rounded-xl shadow-lg text-center border border-blue-100">
+                <div className="relative">
+                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto mb-4"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-blue-50"></div>
+                  </div>
+                </div>
+                <p className="text-gray-700 font-medium text-lg">Optimizing routes...</p>
+                <p className="text-gray-500 text-sm mt-2">Calculating best delivery paths</p>
               </div>
             )}
 
 
             {/* Results */}
             {routes && !loading && (
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Optimized Routes</h2>
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-3xl">📍</span>
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                    Optimized Routes
+                  </h2>
+                </div>
                 
-                {/* Placeholder for map - we'll add MapDisplay component in Step 6 */}
+                {/* Map Display */}
                 <MapDisplay routes={routes.routes} coordinates={routes.coordinates} />
 
                 {/* Route details */}
-                <div className="space-y-3">
-                  {routes.routes.map((route, index) => (
-                    <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
-                      <h3 className="font-semibold">Vehicle {index + 1}</h3>
-                      <p className="text-sm text-gray-600">
-                        Stops: {route.join(' → ')}
-                      </p>
-                    </div>
-                  ))}
+                <div className="space-y-3 mt-6">
+                  {routes.routes.map((route, index) => {
+                    const colors = [
+                      'border-red-500 bg-red-50',
+                      'border-blue-500 bg-blue-50',
+                      'border-green-500 bg-green-50',
+                      'border-orange-500 bg-orange-50',
+                      'border-purple-500 bg-purple-50',
+                      'border-pink-500 bg-pink-50',
+                    ];
+                    return (
+                      <div 
+                        key={index} 
+                        className={`border-l-4 ${colors[index % colors.length]} pl-4 py-3 rounded-r-lg transition-all hover:shadow-md`}
+                      >
+                        <h3 className="font-bold text-lg text-gray-800">🚐 Vehicle {index + 1}</h3>
+                        <p className="text-sm text-gray-600 mt-1 font-medium">
+                          Stops: <span className="font-mono">{route.join(' → ')}</span>
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {route.length - 1} delivery points
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
 
             {/* Initial state */}
             {!routes && !loading && !error && (
-              <div className="bg-white p-8 rounded-lg shadow-md text-center">
-                <p className="text-gray-500">
-                  Enter parameters and click "Optimize Routes" to see results
+              <div className="bg-gradient-to-br from-white to-blue-50 p-12 rounded-xl shadow-lg text-center border-2 border-dashed border-blue-200">
+                <div className="text-6xl mb-4">🗺️</div>
+                <p className="text-gray-700 text-lg font-medium">
+                  Enter parameters and click "Optimize Routes"
+                </p>
+                <p className="text-gray-500 mt-2">
+                  to see the optimized delivery paths
                 </p>
               </div>
             )}
           </div>
         </div>
         {/* Footer */}
-        <footer className="mt-8 text-center text-gray-600 text-sm">
+        <footer className="mt-12 text-center text-gray-600 text-sm">
           <p>
             Made by{' '}
             <a 
               href="https://github.com/Nikhil-NP" 
               target="_blank"
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors"
             >
               Nikhil-NP
             </a>

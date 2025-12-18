@@ -17,9 +17,10 @@ app.use(express.json());
 
 function calculateOptimalParameters(
     numberOfCordinates:number,
-    numberOfVehicles:number,range:number
+    numberOfVehicles:number,
+    rangeInKm:number // Now expecting km directly
 ):OptimalParameters{
-    const areaRadius:number = range * 111000 //approx km conversion ex: 0.05 ~~ 5.5km
+    const areaRadius:number = rangeInKm * 1000 // Convert km to meters
     const deliveriesPerVehicle:number = Math.ceil(numberOfCordinates/numberOfVehicles);
 
     //calc feasible max distance
@@ -35,16 +36,20 @@ function calculateOptimalParameters(
 function randomCordinateGenerator(
     numberOfCordinates:number,
     fixed_location:Coordinate,
-    range:number):Coordinate[] {
+    rangeInKm:number // Now expecting km directly
+):Coordinate[] {
 
     const cords = [fixed_location]; //for now only the fixed location in the res
+    
+    // Convert km to degrees (approximately 111 km per degree)
+    const rangeInDegrees = rangeInKm / 111;
 
     for (let i = 0; i < numberOfCordinates; i++) {
         
-        const angle = Math.random() * 2 * Math.PI; //0 to 360 radious
-        const distance = Math.random() * range;
+        const angle = Math.random() * 2 * Math.PI; //0 to 360 radians
+        const distance = Math.random() * rangeInDegrees; // Random distance in degrees
 
-        const lat = fixed_location.lat + distance * Math.cos(angle); // 
+        const lat = fixed_location.lat + distance * Math.cos(angle); 
         const lng = fixed_location.lng + distance * Math.sin(angle);
         cords.push({lat,lng});  
     }
