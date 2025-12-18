@@ -94,9 +94,7 @@ app.post('/optimize',(req:Request<{},{},OptimizeRequest>,res:Response) =>{
     };
 
 
-    fs.writeFileSync('data3.json',JSON.stringify(final_res,null,2));
-
-    exec('venv/bin/python route_solver.py',(error,stdout,stderr) =>{
+    const pythonProces = exec('venv/bin/python route_solver.py',(error,stdout,stderr) =>{
         if(error){
             console.error(`Python error: ${error.message}`);
             return res.status(500).json({ 
@@ -123,6 +121,8 @@ app.post('/optimize',(req:Request<{},{},OptimizeRequest>,res:Response) =>{
             });
         }
     });
+    pythonProces.stdin?.write(JSON.stringify(final_res));
+    pythonProces.stdin?.end();
 
 });
 

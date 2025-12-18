@@ -1,8 +1,13 @@
 'use client';
 
+
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import RouteForm from "./components/RouteForm";
-
+const MapDisplay = dynamic(
+  () => import('./components/MapDisplay'),
+  {ssr:false}
+)
 //types
 interface RouteFormData {
     numberOfCordinates : number;
@@ -62,6 +67,8 @@ export default function Home() {
 };
 
 
+
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-6xl mx-auto">
@@ -107,9 +114,7 @@ export default function Home() {
                 <h2 className="text-2xl font-bold mb-4">Optimized Routes</h2>
                 
                 {/* Placeholder for map - we'll add MapDisplay component in Step 6 */}
-                <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center mb-4">
-                  <p className="text-gray-500">Map will appear here </p>
-                </div>
+                <MapDisplay routes={routes.routes} coordinates={routes.coordinates} />
 
                 {/* Route details */}
                 <div className="space-y-3">

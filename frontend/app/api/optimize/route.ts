@@ -20,7 +20,7 @@ export async function POST(request:NextRequest) {
                 );
             }
 
-            //forword req
+            //forword req to express backend
             const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080';
 
             const response = await fetch(`${backendUrl}/optimize`,{

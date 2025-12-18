@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/leaflet':
-        specifier: ^1.9.21
-        version: 1.9.21
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -30,6 +27,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.18
+      '@types/leaflet':
+        specifier: ^1.9.21
+        version: 1.9.21
       '@types/node':
         specifier: ^20
         version: 20.19.27

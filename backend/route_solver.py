@@ -2,16 +2,15 @@ import json
 import math
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+import sys
 
 
 
-
-def dataExtraction(filename="data3.json"):
+def dataExtraction():
     """Load JSON input data"""
+    data = json.load(sys.stdin)
 
-
-    with open(filename,"r") as f:
-        data = json.load(f)
+    
     
     return data
 
@@ -130,8 +129,8 @@ if __name__ == "__main__":
 
 
 
-    #loading data
-    rawData = dataExtraction("data3.json")
+    #loading data from stdin
+    rawData = dataExtraction()
     coords = rawData['coordinates']
     numberOfVehicles = rawData['numberOfVehicles']
     maxDistancePerVehicle = rawData['maxDistancePerVehicle']
