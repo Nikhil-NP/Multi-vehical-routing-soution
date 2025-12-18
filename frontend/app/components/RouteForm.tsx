@@ -43,22 +43,22 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
 
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-2xl border border-gray-700">
             <div className="flex items-center gap-3 mb-5">
                 <span className="text-3xl">⚙️</span>
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent">
                     Route Optimizer
                 </h2>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                         📦 Number of Delivery Points
                     </label>
                     <input
                     type="number"
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-gray-400 font-medium placeholder:text-gray-400"
+                    className="w-full px-4 py-2.5 bg-gray-900 border-2 border-gray-700 rounded-lg focus:border-gray-500 focus:ring-2 focus:ring-gray-600 transition-all outline-none text-gray-100 font-medium placeholder:text-gray-500"
                     placeholder="e.g., 8"
                     value={numberOfCordinates}
                     onChange={(e) => setNumberOfCordinates(Number(e.target.value))}
@@ -69,12 +69,12 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                         🚐 Number of Vehicles
                     </label>
                     <input
                     type="number"
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-gray-400 font-medium placeholder:text-gray-400"
+                    className="w-full px-4 py-2.5 bg-gray-900 border-2 border-gray-700 rounded-lg focus:border-gray-500 focus:ring-2 focus:ring-gray-600 transition-all outline-none text-gray-100 font-medium placeholder:text-gray-500"
                     placeholder="e.g., 3"
                     value={numberOfVehicles}
                     onChange={(e) => setNumberOfVehicles(Number(e.target.value))}
@@ -86,20 +86,20 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
 
 
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                         📏 Range (kms)
                     </label>
                     <input
                     type="number"
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none placeholder:text-gray-400 text-gray-400 font-medium"
-                    placeholder="eg,. 3"
+                    className="w-full px-4 py-2.5 bg-gray-900 border-2 border-gray-700 rounded-lg focus:border-gray-500 focus:ring-2 focus:ring-gray-600 transition-all outline-none text-gray-100 font-medium placeholder:text-gray-500"
+                    placeholder="eg,.3"
                     min="1"
                     max="50"
                     value={range}
                     onChange={(e) => setRange(Number(e.target.value))}
                     required                    
                     />
-                    <p className="text-xs text-gray-500 mt-2 bg-gray-50 px-3 py-1.5 rounded-md">
+                    <p className="text-xs text-gray-400 mt-2 bg-gray-900 px-3 py-1.5 rounded-md border border-gray-700">
                         💡 Delivery radius around depot
                     </p>
                 </div>
@@ -107,7 +107,7 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                    className="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white py-3 px-4 rounded-lg font-semibold hover:from-gray-600 hover:to-gray-800 disabled:from-gray-800 disabled:to-gray-900 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg border border-gray-600"
                 >
                    {isLoading ? (
                     <span className="flex items-center justify-center gap-2">
