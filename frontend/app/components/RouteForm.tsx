@@ -3,6 +3,9 @@
 
 import { Route } from "next";
 import { useState } from "react";
+import dynamic from 'next/dynamic';
+
+const DepotPicker = dynamic(() => import('./DepotPicker'), { ssr: false });
 
 
 //typesafe form format
@@ -10,6 +13,10 @@ interface RouteFormData {
     numberOfCordinates : number;
     numberOfVehicles : number;
     range : number;
+    depot: {
+        lat: number;
+        lng: number;
+    };
 }
 
 
@@ -27,6 +34,14 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
     const [numberOfCordinates,setNumberOfCordinates] = useState(8);
     const [numberOfVehicles, setNumberOfVehicles] = useState(3);
     const [range, setRange] = useState(5); // Default 5 km
+    const [depotLat, setDepotLat] = useState(18.49476); // Pune, India
+    const [depotLng, setDepotLng] = useState(73.890154);
+    const [showMapPicker, setShowMapPicker] = useState(false);
+
+    const handleLocationSelect = (lat: number, lng: number) => {
+        setDepotLat(lat);
+        setDepotLng(lng);
+    };
 
 
     //handle submission
@@ -38,6 +53,10 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
             numberOfCordinates,
             numberOfVehicles,
             range,
+            depot: {
+                lat: depotLat,
+                lng: depotLng
+            }
         });
     }
 
@@ -101,6 +120,68 @@ export default function RouteForm({onOptimize,isLoading= false}:RouteFormProps){
                     />
                     <p className="text-xs text-gray-400 mt-2 bg-gray-900 px-3 py-1.5 rounded-md border border-gray-700">
                         💡 Delivery radius around depot
+                    </p>
+                </div>
+
+                <div className="border-t border-gray-700 pt-4">
+                    <div className="flex items-center justify-between mb-3">
+                        <label className="block text-sm font-semibold text-gray-300">
+                            📍 Depot Location
+                        </label>
+                        <button
+                            type="button"
+                            onClick={() => setShowMapPicker(!showMapPicker)}
+                            className="text-xs px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-100 rounded-md transition-all border border-gray-600"
+                        >
+                            {showMapPicker ? '🗺️ Hide Map' : '🗺️ Pick on Map'}
+                        </button>
+                    </div>
+
+                    {showMapPicker && (
+                        <div className="mb-4">
+                            <DepotPicker 
+                                lat={depotLat} 
+                                lng={depotLng} 
+                                onLocationSelect={handleLocationSelect}
+                            />
+                            <p className="text-xs text-gray-400 mt-2 bg-gray-900 px-3 py-1.5 rounded-md border border-gray-700">
+                                🖱️ Click anywhere on the map to set depot location
+                            </p>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-400 mb-1.5">
+                                Latitude
+                            </label>
+                            <input
+                            type="number"
+                            step="any"
+                            className="w-full px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg focus:border-gray-500 focus:ring-2 focus:ring-gray-600 transition-all outline-none text-gray-100 font-medium placeholder:text-gray-500"
+                            placeholder="e.g., 18.49476"
+                            value={depotLat}
+                            onChange={(e) => setDepotLat(Number(e.target.value))}
+                            required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-400 mb-1.5">
+                                Longitude
+                            </label>
+                            <input
+                            type="number"
+                            step="any"
+                            className="w-full px-3 py-2 bg-gray-900 border-2 border-gray-700 rounded-lg focus:border-gray-500 focus:ring-2 focus:ring-gray-600 transition-all outline-none text-gray-100 font-medium placeholder:text-gray-500"
+                            placeholder="e.g., 73.890154"
+                            value={depotLng}
+                            onChange={(e) => setDepotLng(Number(e.target.value))}
+                            required
+                            />
+                        </div>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-2 bg-gray-900 px-3 py-1.5 rounded-md border border-gray-700">
+                        💡 Default: Pune, India
                     </p>
                 </div>
 

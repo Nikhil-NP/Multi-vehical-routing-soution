@@ -13,6 +13,10 @@ interface RouteFormData {
     numberOfCordinates : number;
     numberOfVehicles : number;
     range : number;
+    depot: {
+        lat: number;
+        lng: number;
+    };
 }
 
 interface Coordinate {

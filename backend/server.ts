@@ -67,7 +67,8 @@ app.post('/optimize',(req:Request<{},{},OptimizeRequest>,res:Response) =>{
     const {
          numberOfCordinates,
          numberOfVehicles,
-         range
+         range,
+         depot
     } = req.body
     
     //validation
@@ -80,8 +81,8 @@ app.post('/optimize',(req:Request<{},{},OptimizeRequest>,res:Response) =>{
     }
     
 
-    //pune location rn
-    const fixed_location : Coordinate  = {
+    // Use provided depot or default to Pune, India
+    const depotLocation : Coordinate  = depot || {
         lat:18.49476,
         lng:73.890154
     };
@@ -89,7 +90,7 @@ app.post('/optimize',(req:Request<{},{},OptimizeRequest>,res:Response) =>{
     
     const {maxDistancePerVehicle} = calculateOptimalParameters(numberOfCordinates,numberOfVehicles,range); //6km for now : needs to be more dynamic like distance based for devices
 
-    const diliveryPoints = randomCordinateGenerator(numberOfCordinates,fixed_location,range);
+    const diliveryPoints = randomCordinateGenerator(numberOfCordinates,depotLocation,range);
 
     //organing it better:not using for now
     const final_res : DataModel = {

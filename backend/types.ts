@@ -7,6 +7,10 @@ export interface OptimizeRequest {
     numberOfCordinates: number;
     numberOfVehicles: number;
     range: number;
+    depot?: {
+        lat: number;
+        lng: number;
+    };
 }
 
 export interface OptimalParameters {

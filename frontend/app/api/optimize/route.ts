@@ -5,6 +5,10 @@ interface OptimizeRequest {
   numberOfCordinates: number;
   numberOfVehicles: number;
   range: number;
+  depot?: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export async function POST(request:NextRequest) {
@@ -12,7 +16,7 @@ export async function POST(request:NextRequest) {
             //parse
             const body : OptimizeRequest = await request.json();
 
-            //validate
+            //validate (depot is optional)
             if(!body.numberOfCordinates || !body.numberOfVehicles || !body.range){
                 return NextResponse.json(
                     {error:'Missing params'},
