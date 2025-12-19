@@ -1,5 +1,8 @@
 # Multi-Vehicle Delivery Route Optimizer (MDRS)
 
+currently live at : https://multi-vehical-routing-soution.vercel.app/
+(might take 50 sec for first time since its on free tier so cold starting)
+
 A full-stack web application that optimizes delivery routes for multiple vehicles using Google OR-Tools and visualizes them on an interactive map.
 
 ## Features
